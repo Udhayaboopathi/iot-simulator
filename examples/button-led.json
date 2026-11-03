@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "id": "button-led",
+  "name": "Push-Button LED Control",
+  "description": "Press the button (click it in 2D or 3D) and the LED follows D2.",
+  "board": "arduino-uno",
+  "components": [
+    {
+      "id": "uno1",
+      "type": "arduino-uno",
+      "label": "uno1",
+      "pos2d": {
+        "x": 40,
+        "y": 60
+      },
+      "pos3d": {
+        "x": 40,
+        "y": 0,
+        "z": 60
+      },
+      "rotation": 0,
+      "props": {}
+    },
+    {
+      "id": "btn1",
+      "type": "push-button",
+      "label": "btn1",
+      "pos2d": {
+        "x": 360,
+        "y": 200
+      },
+      "pos3d": {
+        "x": 360,
+        "y": 0,
+        "z": 200
+      },
+      "rotation": 0,
+      "props": {
+        "pressed": false
+      }
+    },
+    {
+      "id": "led1",
+      "type": "led",
+      "label": "led1",
+      "pos2d": {
+        "x": 340,
+        "y": 40
+      },
+      "pos3d": {
+        "x": 340,
+        "y": 0,
+        "z": 40
+      },
+      "rotation": 0,
+      "props": {
+        "color": "#ff2222"
+      }
+    },
+    {
+      "id": "r1",
+      "type": "resistor",
+      "label": "r1",
+      "pos2d": {
+        "x": 340,
+        "y": 120
+      },
+      "pos3d": {
+        "x": 340,
+        "y": 0,
+        "z": 120
+      },
+      "rotation": 0,
+      "props": {
+        "resistance": 220
+      }
+    }
+  ],
+  "wires": [
+    {
+      "id": "w_uno1D13_r11_xaf6j",
+      "from": {
+        "component": "uno1",
+        "pin": "D13"
+      },
+      "to": {
+        "component": "r1",
+        "pin": "1"
+      },
+      "color": "#e53935"
+    },
+    {
+      "id": "w_r12_led1A_imypt",
+      "from": {
+        "component": "r1",
+        "pin": "2"
+      },
+      "to": {
+        "component": "led1",
+        "pin": "A"
+      },
+      "color": "#e53935"
+    },
+    {
+      "id": "w_led1K_uno1GND_wtfc8",
+      "from": {
+        "component": "led1",
+        "pin": "K"
+      },
+      "to": {
+        "component": "uno1",
+        "pin": "GND"
+      },
+      "color": "#222"
+    },
+    {
+      "id": "w_uno15V_btn11_x3xdd",
+      "from": {
+        "component": "uno1",
+        "pin": "5V"
+      },
+      "to": {
+        "component": "btn1",
+        "pin": "1"
+      },
+      "color": "#c00"
+    },
+    {
+      "id": "w_btn12_uno1D2_3te08",
+      "from": {
+        "component": "btn1",
+        "pin": "2"
+      },
+      "to": {
+        "component": "uno1",
+        "pin": "D2"
+      },
+      "color": "#2277cc"
+    }
+  ],
+  "files": [
+    {
+      "name": "sketch.ino",
+      "language": "cpp",
+      "content": "void setup() { pinMode(D13, OUTPUT); pinMode(D2, INPUT); }\nvoid loop() {\n  int state = digitalRead(D2);\n  digitalWrite(D13, state);\n}\n"
+    }
+  ],
+  "settings": {
+    "gridSize": 10,
+    "supplyVoltage": 5
+  },
+  "createdAt": "2026-11-03T00:00:00.000Z",
+  "updatedAt": "2026-11-03T00:00:00.000Z"
+}

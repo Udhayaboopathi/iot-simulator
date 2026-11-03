@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "id": "led-blink",
+  "name": "Arduino LED Blink",
+  "description": "The hello-world of hardware: an Arduino Uno blinks an LED on D13 every second. Run it and watch the same state in 2D and 3D.",
+  "board": "arduino-uno",
+  "components": [
+    {
+      "id": "uno1",
+      "type": "arduino-uno",
+      "label": "uno1",
+      "pos2d": {
+        "x": 40,
+        "y": 60
+      },
+      "pos3d": {
+        "x": 40,
+        "y": 0,
+        "z": 60
+      },
+      "rotation": 0,
+      "props": {}
+    },
+    {
+      "id": "led1",
+      "type": "led",
+      "label": "led1",
+      "pos2d": {
+        "x": 340,
+        "y": 60
+      },
+      "pos3d": {
+        "x": 340,
+        "y": 0,
+        "z": 60
+      },
+      "rotation": 0,
+      "props": {
+        "color": "#ff2222"
+      }
+    },
+    {
+      "id": "r1",
+      "type": "resistor",
+      "label": "r1",
+      "pos2d": {
+        "x": 340,
+        "y": 140
+      },
+      "pos3d": {
+        "x": 340,
+        "y": 0,
+        "z": 140
+      },
+      "rotation": 0,
+      "props": {
+        "resistance": 220
+      }
+    }
+  ],
+  "wires": [
+    {
+      "id": "w_uno1D13_r11_86sr6",
+      "from": {
+        "component": "uno1",
+        "pin": "D13"
+      },
+      "to": {
+        "component": "r1",
+        "pin": "1"
+      },
+      "color": "#e53935"
+    },
+    {
+      "id": "w_r12_led1A_ezdr3",
+      "from": {
+        "component": "r1",
+        "pin": "2"
+      },
+      "to": {
+        "component": "led1",
+        "pin": "A"
+      },
+      "color": "#e53935"
+    },
+    {
+      "id": "w_led1K_uno1GND_9n3ck",
+      "from": {
+        "component": "led1",
+        "pin": "K"
+      },
+      "to": {
+        "component": "uno1",
+        "pin": "GND"
+      },
+      "color": "#222"
+    }
+  ],
+  "files": [
+    {
+      "name": "sketch.ino",
+      "language": "cpp",
+      "content": "// Arduino LED blink — D13 drives an LED through a 220 ohm resistor.\nvoid setup() {\n  pinMode(D13, OUTPUT);\n  Serial.begin(9600);\n}\nvoid loop() {\n  digitalWrite(D13, HIGH);\n  Serial.println(\"LED ON\");\n  delay(1000);\n  digitalWrite(D13, LOW);\n  Serial.println(\"LED OFF\");\n  delay(1000);\n}\n"
+    }
+  ],
+  "settings": {
+    "gridSize": 10,
+    "supplyVoltage": 5
+  },
+  "createdAt": "2026-11-03T00:00:00.000Z",
+  "updatedAt": "2026-11-03T00:00:00.000Z"
+}

@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "id": "ultrasonic",
+  "name": "Ultrasonic Distance Measurement",
+  "description": "HC-SR04 on TRIG D9 / ECHO D10. pulseIn() returns echo microseconds; distance = us / 58. Drag the distance slider in the inspector.",
+  "board": "arduino-uno",
+  "components": [
+    {
+      "id": "uno1",
+      "type": "arduino-uno",
+      "label": "uno1",
+      "pos2d": {
+        "x": 40,
+        "y": 60
+      },
+      "pos3d": {
+        "x": 40,
+        "y": 0,
+        "z": 60
+      },
+      "rotation": 0,
+      "props": {}
+    },
+    {
+      "id": "us1",
+      "type": "hc-sr04",
+      "label": "us1",
+      "pos2d": {
+        "x": 360,
+        "y": 80
+      },
+      "pos3d": {
+        "x": 360,
+        "y": 0,
+        "z": 80
+      },
+      "rotation": 0,
+      "props": {
+        "distanceCm": 25
+      }
+    }
+  ],
+  "wires": [
+    {
+      "id": "w_uno15V_us1VCC_nodkc",
+      "from": {
+        "component": "uno1",
+        "pin": "5V"
+      },
+      "to": {
+        "component": "us1",
+        "pin": "VCC"
+      },
+      "color": "#c00"
+    },
+    {
+      "id": "w_us1TRIG_uno1D9_pfgwq",
+      "from": {
+        "component": "us1",
+        "pin": "TRIG"
+      },
+      "to": {
+        "component": "uno1",
+        "pin": "D9"
+      },
+      "color": "#2277cc"
+    },
+    {
+      "id": "w_us1ECHO_uno1D10_7nn5y",
+      "from": {
+        "component": "us1",
+        "pin": "ECHO"
+      },
+      "to": {
+        "component": "uno1",
+        "pin": "D10"
+      },
+      "color": "#2e7d32"
+    },
+    {
+      "id": "w_us1GND_uno1GND_xjgbg",
+      "from": {
+        "component": "us1",
+        "pin": "GND"
+      },
+      "to": {
+        "component": "uno1",
+        "pin": "GND"
+      },
+      "color": "#222"
+    }
+  ],
+  "files": [
+    {
+      "name": "sketch.ino",
+      "language": "cpp",
+      "content": "void setup() { Serial.begin(9600); pinMode(D9, OUTPUT); pinMode(D10, INPUT); }\nvoid loop() {\n  digitalWrite(D9, LOW); delay(1);\n  digitalWrite(D9, HIGH); delay(1);\n  digitalWrite(D9, LOW);\n  long us = pulseIn(D10, HIGH);\n  long cm = us / 58;\n  Serial.print(\"Distance: \"); Serial.print(cm); Serial.println(\" cm\");\n  delay(500);\n}\n"
+    }
+  ],
+  "settings": {
+    "gridSize": 10,
+    "supplyVoltage": 5
+  },
+  "createdAt": "2026-11-03T00:00:00.000Z",
+  "updatedAt": "2026-11-03T00:00:00.000Z"
+}

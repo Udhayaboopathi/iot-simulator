@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "id": "lcd1602",
+  "name": "LCD 16x2 Display",
+  "description": "Prints a greeting and a live seconds counter to the I2C LCD.",
+  "board": "arduino-uno",
+  "components": [
+    {
+      "id": "uno1",
+      "type": "arduino-uno",
+      "label": "uno1",
+      "pos2d": {
+        "x": 40,
+        "y": 60
+      },
+      "pos3d": {
+        "x": 40,
+        "y": 0,
+        "z": 60
+      },
+      "rotation": 0,
+      "props": {}
+    },
+    {
+      "id": "lcd1",
+      "type": "lcd1602",
+      "label": "lcd1",
+      "pos2d": {
+        "x": 340,
+        "y": 80
+      },
+      "pos3d": {
+        "x": 340,
+        "y": 0,
+        "z": 80
+      },
+      "rotation": 0,
+      "props": {}
+    }
+  ],
+  "wires": [
+    {
+      "id": "w_uno15V_lcd1VCC_ux2cc",
+      "from": {
+        "component": "uno1",
+        "pin": "5V"
+      },
+      "to": {
+        "component": "lcd1",
+        "pin": "VCC"
+      },
+      "color": "#c00"
+    },
+    {
+      "id": "w_lcd1GND_uno1GND_mk2q0",
+      "from": {
+        "component": "lcd1",
+        "pin": "GND"
+      },
+      "to": {
+        "component": "uno1",
+        "pin": "GND"
+      },
+      "color": "#222"
+    },
+    {
+      "id": "w_lcd1SDA_uno1A4_phazm",
+      "from": {
+        "component": "lcd1",
+        "pin": "SDA"
+      },
+      "to": {
+        "component": "uno1",
+        "pin": "A4"
+      },
+      "color": "#2277cc"
+    },
+    {
+      "id": "w_lcd1SCL_uno1A5_r0wfh",
+      "from": {
+        "component": "lcd1",
+        "pin": "SCL"
+      },
+      "to": {
+        "component": "uno1",
+        "pin": "A5"
+      },
+      "color": "#2e7d32"
+    }
+  ],
+  "files": [
+    {
+      "name": "sketch.ino",
+      "language": "cpp",
+      "content": "LiquidCrystal_I2C lcd(0x27, 16, 2);\nint secs = 0;\nvoid setup() { lcd.init(); lcd.backlight(); lcd.print(\"Hello, IoT Sim!\"); }\nvoid loop() { secs += 1; lcd.clear(); lcd.print(\"Uptime s: \"); lcd.print(secs); delay(1000); }\n"
+    }
+  ],
+  "settings": {
+    "gridSize": 10,
+    "supplyVoltage": 5
+  },
+  "createdAt": "2026-11-03T00:00:00.000Z",
+  "updatedAt": "2026-11-03T00:00:00.000Z"
+}

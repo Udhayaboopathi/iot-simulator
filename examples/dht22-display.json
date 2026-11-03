@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "id": "dht22-display",
+  "name": "DHT22 Temperature & Humidity",
+  "description": "Reads a DHT22 on D2 and prints readings to Serial every 2 s. Change temperature/humidity in the inspector while it runs.",
+  "board": "arduino-uno",
+  "components": [
+    {
+      "id": "uno1",
+      "type": "arduino-uno",
+      "label": "uno1",
+      "pos2d": {
+        "x": 40,
+        "y": 60
+      },
+      "pos3d": {
+        "x": 40,
+        "y": 0,
+        "z": 60
+      },
+      "rotation": 0,
+      "props": {}
+    },
+    {
+      "id": "dht1",
+      "type": "dht22",
+      "label": "dht1",
+      "pos2d": {
+        "x": 360,
+        "y": 80
+      },
+      "pos3d": {
+        "x": 360,
+        "y": 0,
+        "z": 80
+      },
+      "rotation": 0,
+      "props": {
+        "temperature": 28,
+        "humidity": 55
+      }
+    }
+  ],
+  "wires": [
+    {
+      "id": "w_uno15V_dht1VCC_hiajt",
+      "from": {
+        "component": "uno1",
+        "pin": "5V"
+      },
+      "to": {
+        "component": "dht1",
+        "pin": "VCC"
+      },
+      "color": "#c00"
+    },
+    {
+      "id": "w_dht1DATA_uno1D2_ngba3",
+      "from": {
+        "component": "dht1",
+        "pin": "DATA"
+      },
+      "to": {
+        "component": "uno1",
+        "pin": "D2"
+      },
+      "color": "#ff9800"
+    },
+    {
+      "id": "w_dht1GND_uno1GND_zbhel",
+      "from": {
+        "component": "dht1",
+        "pin": "GND"
+      },
+      "to": {
+        "component": "uno1",
+        "pin": "GND"
+      },
+      "color": "#222"
+    }
+  ],
+  "files": [
+    {
+      "name": "sketch.ino",
+      "language": "cpp",
+      "content": "DHT dht(D2, DHT22);\nvoid setup() { Serial.begin(9600); dht.begin(); }\nvoid loop() {\n  float t = dht.readTemperature();\n  float h = dht.readHumidity();\n  Serial.print(\"Temp: \"); Serial.print(t); Serial.print(\" C  Humidity: \"); Serial.print(h); Serial.println(\" %\");\n  delay(2000);\n}\n"
+    }
+  ],
+  "settings": {
+    "gridSize": 10,
+    "supplyVoltage": 5
+  },
+  "createdAt": "2026-11-03T00:00:00.000Z",
+  "updatedAt": "2026-11-03T00:00:00.000Z"
+}

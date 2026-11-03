@@ -1,0 +1,21 @@
+// Minimal CDP e2e: open the workspace, click Run, read Serial + LED state text.
+const CDP = "http://127.0.0.1:9224";
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const targets = await (await fetch(`${CDP}/json/new?http://127.0.0.1:5173/workspace?example=led-blink`, { method: "PUT" })).json();
+const ws = new WebSocket(targets.webSocketDebuggerUrl);
+await new Promise((r) => ws.addEventListener("open", r, { once: true }));
+let id = 0; const pending = new Map();
+ws.addEventListener("message", (ev) => { const m = JSON.parse(ev.data); if (m.id && pending.has(m.id)) { pending.get(m.id)(m.result); pending.delete(m.id); } });
+const send = (method, params = {}) => new Promise((res) => { const i = ++id; pending.set(i, res); ws.send(JSON.stringify({ id: i, method, params })); });
+await send("Runtime.enable");
+await sleep(2500);
+const evalJs = async (expr) => { const r = await send("Runtime.evaluate", { expression: expr, returnByValue: true }); return r?.result?.value; };
+console.log("title header:", await evalJs(`document.querySelector('.ws-toolbar strong')?.textContent`));
+await evalJs(`[...document.querySelectorAll('button')].find(b=>b.textContent.includes('Run'))?.click(); 'clicked'`);
+await sleep(2600);
+console.log("serial contains LED ON:", await evalJs(`document.body.innerText.includes('LED ON')`));
+console.log("serial contains LED OFF:", await evalJs(`document.body.innerText.includes('LED OFF')`));
+console.log("time chip:", await evalJs(`[...document.querySelectorAll('.chip')].map(c=>c.textContent).find(t=>t.startsWith('t ='))`));
+await evalJs(`[...document.querySelectorAll('button')].find(b=>b.textContent.includes('Pause'))?.click(); 'paused'`);
+console.log("E2E-OK");
+ws.close(); process.exit(0);

@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "id": "esp32-mqtt",
+  "name": "ESP32 MQTT Temperature Telemetry",
+  "description": "Virtual-network example: the sketch VM publishes DHT readings to the in-app virtual MQTT broker panel every 2 s. Marked PARTIAL — no Xtensa emulation (see KNOWN_LIMITATIONS).",
+  "board": "esp32-devkit",
+  "components": [
+    {
+      "id": "esp1",
+      "type": "esp32-devkit",
+      "label": "esp1",
+      "pos2d": {
+        "x": 40,
+        "y": 60
+      },
+      "pos3d": {
+        "x": 40,
+        "y": 0,
+        "z": 60
+      },
+      "rotation": 0,
+      "props": {}
+    },
+    {
+      "id": "dht1",
+      "type": "dht22",
+      "label": "dht1",
+      "pos2d": {
+        "x": 340,
+        "y": 80
+      },
+      "pos3d": {
+        "x": 340,
+        "y": 0,
+        "z": 80
+      },
+      "rotation": 0,
+      "props": {
+        "temperature": 29,
+        "humidity": 60
+      }
+    }
+  ],
+  "wires": [
+    {
+      "id": "w_esp13V3_dht1VCC_fcfzk",
+      "from": {
+        "component": "esp1",
+        "pin": "3V3"
+      },
+      "to": {
+        "component": "dht1",
+        "pin": "VCC"
+      },
+      "color": "#c00"
+    },
+    {
+      "id": "w_dht1DATA_esp1GPIO15_p3gg3",
+      "from": {
+        "component": "dht1",
+        "pin": "DATA"
+      },
+      "to": {
+        "component": "esp1",
+        "pin": "GPIO15"
+      },
+      "color": "#ff9800"
+    },
+    {
+      "id": "w_dht1GND_esp1GND_x92z8",
+      "from": {
+        "component": "dht1",
+        "pin": "GND"
+      },
+      "to": {
+        "component": "esp1",
+        "pin": "GND"
+      },
+      "color": "#222"
+    }
+  ],
+  "files": [
+    {
+      "name": "sketch.ino",
+      "language": "cpp",
+      "content": "DHT dht(GPIO15, DHT22);\nvoid setup() { Serial.begin(115200); dht.begin(); mqtt.connect(); }\nvoid loop() {\n  float t = dht.readTemperature();\n  Serial.print(\"Publishing temp: \"); Serial.println(t);\n  mqtt.publish(\"iot/room1/temperature\", t);\n  delay(2000);\n}\n"
+    }
+  ],
+  "settings": {
+    "gridSize": 10,
+    "supplyVoltage": 5
+  },
+  "createdAt": "2026-11-03T00:00:00.000Z",
+  "updatedAt": "2026-11-03T00:00:00.000Z"
+}

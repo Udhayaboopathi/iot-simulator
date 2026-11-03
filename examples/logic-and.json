@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "id": "logic-and",
+  "name": "Digital Logic — AND Gate",
+  "description": "Two switches feed a 74HC08 AND gate; the LED lights only when both are on. Toggle switches in the inspector.",
+  "board": "arduino-uno",
+  "components": [
+    {
+      "id": "swA",
+      "type": "slide-switch",
+      "label": "swA",
+      "pos2d": {
+        "x": 40,
+        "y": 40
+      },
+      "pos3d": {
+        "x": 40,
+        "y": 0,
+        "z": 40
+      },
+      "rotation": 0,
+      "props": {
+        "on": false
+      }
+    },
+    {
+      "id": "swB",
+      "type": "slide-switch",
+      "label": "swB",
+      "pos2d": {
+        "x": 40,
+        "y": 140
+      },
+      "pos3d": {
+        "x": 40,
+        "y": 0,
+        "z": 140
+      },
+      "rotation": 0,
+      "props": {
+        "on": true
+      }
+    },
+    {
+      "id": "gate1",
+      "type": "logic-and",
+      "label": "gate1",
+      "pos2d": {
+        "x": 220,
+        "y": 80
+      },
+      "pos3d": {
+        "x": 220,
+        "y": 0,
+        "z": 80
+      },
+      "rotation": 0,
+      "props": {
+        "gate": "AND"
+      }
+    },
+    {
+      "id": "led1",
+      "type": "led",
+      "label": "led1",
+      "pos2d": {
+        "x": 400,
+        "y": 80
+      },
+      "pos3d": {
+        "x": 400,
+        "y": 0,
+        "z": 80
+      },
+      "rotation": 0,
+      "props": {
+        "color": "#22cc44"
+      }
+    },
+    {
+      "id": "r1",
+      "type": "resistor",
+      "label": "r1",
+      "pos2d": {
+        "x": 400,
+        "y": 180
+      },
+      "pos3d": {
+        "x": 400,
+        "y": 0,
+        "z": 180
+      },
+      "rotation": 0,
+      "props": {
+        "resistance": 220
+      }
+    },
+    {
+      "id": "psu1",
+      "type": "power-supply",
+      "label": "psu1",
+      "pos2d": {
+        "x": 40,
+        "y": 260
+      },
+      "pos3d": {
+        "x": 40,
+        "y": 0,
+        "z": 260
+      },
+      "rotation": 0,
+      "props": {
+        "voltage": 5
+      }
+    }
+  ],
+  "wires": [
+    {
+      "id": "w_psu1VCC_swA1_s60w4",
+      "from": {
+        "component": "psu1",
+        "pin": "VCC"
+      },
+      "to": {
+        "component": "swA",
+        "pin": "1"
+      },
+      "color": "#c00"
+    },
+    {
+      "id": "w_psu1VCC_swB1_sgkxd",
+      "from": {
+        "component": "psu1",
+        "pin": "VCC"
+      },
+      "to": {
+        "component": "swB",
+        "pin": "1"
+      },
+      "color": "#c00"
+    },
+    {
+      "id": "w_swACOM_gate1A_ejfm7",
+      "from": {
+        "component": "swA",
+        "pin": "COM"
+      },
+      "to": {
+        "component": "gate1",
+        "pin": "A"
+      },
+      "color": "#2277cc"
+    },
+    {
+      "id": "w_swBCOM_gate1B_3kj2t",
+      "from": {
+        "component": "swB",
+        "pin": "COM"
+      },
+      "to": {
+        "component": "gate1",
+        "pin": "B"
+      },
+      "color": "#2e7d32"
+    },
+    {
+      "id": "w_psu1VCC_gate1VCC_2hzrf",
+      "from": {
+        "component": "psu1",
+        "pin": "VCC"
+      },
+      "to": {
+        "component": "gate1",
+        "pin": "VCC"
+      },
+      "color": "#c00"
+    },
+    {
+      "id": "w_gate1GND_psu1GND_ih11e",
+      "from": {
+        "component": "gate1",
+        "pin": "GND"
+      },
+      "to": {
+        "component": "psu1",
+        "pin": "GND"
+      },
+      "color": "#222"
+    },
+    {
+      "id": "w_gate1Y_r11_zei6n",
+      "from": {
+        "component": "gate1",
+        "pin": "Y"
+      },
+      "to": {
+        "component": "r1",
+        "pin": "1"
+      },
+      "color": "#ff9800"
+    },
+    {
+      "id": "w_r12_led1A_lx2is",
+      "from": {
+        "component": "r1",
+        "pin": "2"
+      },
+      "to": {
+        "component": "led1",
+        "pin": "A"
+      },
+      "color": "#e53935"
+    },
+    {
+      "id": "w_led1K_psu1GND_p3fej",
+      "from": {
+        "component": "led1",
+        "pin": "K"
+      },
+      "to": {
+        "component": "psu1",
+        "pin": "GND"
+      },
+      "color": "#222"
+    }
+  ],
+  "files": [
+    {
+      "name": "sketch.ino",
+      "language": "cpp",
+      "content": "// No firmware: this circuit is pure hardware logic.\nvoid setup() {}\nvoid loop() {}\n"
+    }
+  ],
+  "settings": {
+    "gridSize": 10,
+    "supplyVoltage": 5
+  },
+  "createdAt": "2026-11-03T00:00:00.000Z",
+  "updatedAt": "2026-11-03T00:00:00.000Z"
+}

@@ -1,0 +1,1 @@
+{"dependencies":{"@iot-sim/components-library":"*","@iot-sim/project-schema":"*"},"license":"MIT","main":"src/index.ts","name":"@iot-sim/circuit-core","type":"module","types":"src/index.ts","version":"0.1.0"}

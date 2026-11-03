@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "id": "servo-control",
+  "name": "Servo Motor Control",
+  "description": "An SG90 sweeps 0→180→0. Watch the horn rotate in 3D.",
+  "board": "arduino-uno",
+  "components": [
+    {
+      "id": "uno1",
+      "type": "arduino-uno",
+      "label": "uno1",
+      "pos2d": {
+        "x": 40,
+        "y": 60
+      },
+      "pos3d": {
+        "x": 40,
+        "y": 0,
+        "z": 60
+      },
+      "rotation": 0,
+      "props": {}
+    },
+    {
+      "id": "servo1",
+      "type": "servo",
+      "label": "servo1",
+      "pos2d": {
+        "x": 360,
+        "y": 80
+      },
+      "pos3d": {
+        "x": 360,
+        "y": 0,
+        "z": 80
+      },
+      "rotation": 0,
+      "props": {}
+    }
+  ],
+  "wires": [
+    {
+      "id": "w_uno15V_servo1VCC_gw2i5",
+      "from": {
+        "component": "uno1",
+        "pin": "5V"
+      },
+      "to": {
+        "component": "servo1",
+        "pin": "VCC"
+      },
+      "color": "#c00"
+    },
+    {
+      "id": "w_servo1SIG_uno1D9_y8qg0",
+      "from": {
+        "component": "servo1",
+        "pin": "SIG"
+      },
+      "to": {
+        "component": "uno1",
+        "pin": "D9"
+      },
+      "color": "#ff9800"
+    },
+    {
+      "id": "w_servo1GND_uno1GND_lmv6a",
+      "from": {
+        "component": "servo1",
+        "pin": "GND"
+      },
+      "to": {
+        "component": "uno1",
+        "pin": "GND"
+      },
+      "color": "#222"
+    }
+  ],
+  "files": [
+    {
+      "name": "sketch.ino",
+      "language": "cpp",
+      "content": "Servo sweep;\nvoid setup() { sweep.attach(D9); }\nvoid loop() {\n  for (int a = 0; a <= 180; a += 10) { sweep.write(a); delay(120); }\n  for (int a = 180; a >= 0; a -= 10) { sweep.write(a); delay(120); }\n}\n"
+    }
+  ],
+  "settings": {
+    "gridSize": 10,
+    "supplyVoltage": 5
+  },
+  "createdAt": "2026-11-03T00:00:00.000Z",
+  "updatedAt": "2026-11-03T00:00:00.000Z"
+}

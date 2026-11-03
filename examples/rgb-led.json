@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "id": "rgb-led",
+  "name": "RGB LED Control",
+  "description": "PWM on D9/D10/D11 mixes colours; the 3D LED glows with the mixed colour.",
+  "board": "arduino-uno",
+  "components": [
+    {
+      "id": "uno1",
+      "type": "arduino-uno",
+      "label": "uno1",
+      "pos2d": {
+        "x": 40,
+        "y": 60
+      },
+      "pos3d": {
+        "x": 40,
+        "y": 0,
+        "z": 60
+      },
+      "rotation": 0,
+      "props": {}
+    },
+    {
+      "id": "rgb1",
+      "type": "rgb-led",
+      "label": "rgb1",
+      "pos2d": {
+        "x": 360,
+        "y": 80
+      },
+      "pos3d": {
+        "x": 360,
+        "y": 0,
+        "z": 80
+      },
+      "rotation": 0,
+      "props": {}
+    },
+    {
+      "id": "rR",
+      "type": "resistor",
+      "label": "rR",
+      "pos2d": {
+        "x": 300,
+        "y": 200
+      },
+      "pos3d": {
+        "x": 300,
+        "y": 0,
+        "z": 200
+      },
+      "rotation": 0,
+      "props": {
+        "resistance": 220
+      }
+    },
+    {
+      "id": "rG",
+      "type": "resistor",
+      "label": "rG",
+      "pos2d": {
+        "x": 360,
+        "y": 200
+      },
+      "pos3d": {
+        "x": 360,
+        "y": 0,
+        "z": 200
+      },
+      "rotation": 0,
+      "props": {
+        "resistance": 220
+      }
+    },
+    {
+      "id": "rB",
+      "type": "resistor",
+      "label": "rB",
+      "pos2d": {
+        "x": 420,
+        "y": 200
+      },
+      "pos3d": {
+        "x": 420,
+        "y": 0,
+        "z": 200
+      },
+      "rotation": 0,
+      "props": {
+        "resistance": 220
+      }
+    }
+  ],
+  "wires": [
+    {
+      "id": "w_uno1D9_rR1_779i8",
+      "from": {
+        "component": "uno1",
+        "pin": "D9"
+      },
+      "to": {
+        "component": "rR",
+        "pin": "1"
+      },
+      "color": "#e53935"
+    },
+    {
+      "id": "w_rR2_rgb1R_wbvxw",
+      "from": {
+        "component": "rR",
+        "pin": "2"
+      },
+      "to": {
+        "component": "rgb1",
+        "pin": "R"
+      },
+      "color": "#e53935"
+    },
+    {
+      "id": "w_uno1D10_rG1_0ruq2",
+      "from": {
+        "component": "uno1",
+        "pin": "D10"
+      },
+      "to": {
+        "component": "rG",
+        "pin": "1"
+      },
+      "color": "#e53935"
+    },
+    {
+      "id": "w_rG2_rgb1G_q726k",
+      "from": {
+        "component": "rG",
+        "pin": "2"
+      },
+      "to": {
+        "component": "rgb1",
+        "pin": "G"
+      },
+      "color": "#e53935"
+    },
+    {
+      "id": "w_uno1D11_rB1_y7qxq",
+      "from": {
+        "component": "uno1",
+        "pin": "D11"
+      },
+      "to": {
+        "component": "rB",
+        "pin": "1"
+      },
+      "color": "#e53935"
+    },
+    {
+      "id": "w_rB2_rgb1B_88tzz",
+      "from": {
+        "component": "rB",
+        "pin": "2"
+      },
+      "to": {
+        "component": "rgb1",
+        "pin": "B"
+      },
+      "color": "#e53935"
+    },
+    {
+      "id": "w_rgb1K_uno1GND_j6xut",
+      "from": {
+        "component": "rgb1",
+        "pin": "K"
+      },
+      "to": {
+        "component": "uno1",
+        "pin": "GND"
+      },
+      "color": "#222"
+    }
+  ],
+  "files": [
+    {
+      "name": "sketch.ino",
+      "language": "cpp",
+      "content": "void setup() { pinMode(D9, OUTPUT); pinMode(D10, OUTPUT); pinMode(D11, OUTPUT); }\nvoid loop() {\n  analogWrite(D9, 255); analogWrite(D10, 0); analogWrite(D11, 0); delay(800);\n  analogWrite(D9, 0); analogWrite(D10, 255); analogWrite(D11, 0); delay(800);\n  analogWrite(D9, 0); analogWrite(D10, 0); analogWrite(D11, 255); delay(800);\n}\n"
+    }
+  ],
+  "settings": {
+    "gridSize": 10,
+    "supplyVoltage": 5
+  },
+  "createdAt": "2026-11-03T00:00:00.000Z",
+  "updatedAt": "2026-11-03T00:00:00.000Z"
+}
